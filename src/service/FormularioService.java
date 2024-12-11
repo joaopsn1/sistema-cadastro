@@ -4,10 +4,12 @@ import domain.Pessoa;
 import repository.FormularioRepository;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class FormularioService {
-    static File file;
+    static Pessoa pessoa;
     private static final Scanner SCANNER = new Scanner(System.in);
     public static void menu(int op) {
         switch (op) {
@@ -15,20 +17,28 @@ public class FormularioService {
             case 2 -> deleteFile();
             case 3 -> fileReader();
             case 4 -> answersFileQuestions();
-            case 5 -> answersFileReader();
+            case 5 -> fileList();
         }
     }
 
     private static void createFile() {
-        FormularioRepository.createFile();
+        FormularioRepository.createFile("formulario.txt");
     }
 
     private static void deleteFile() {
-        FormularioRepository.deleteFile();
+        System.out.print("Digite o nome do arquivo para remover: ");
+        String removeFile = SCANNER.nextLine();
+        FormularioRepository.deleteFile(removeFile);
+    }
+
+    private static void fileList() {
+        FormularioRepository.fileList();
     }
 
     private static void fileReader() {
-        FormularioRepository.fileReader();
+        System.out.print("Digite o nome do arquivo para ler: ");
+        String readFile = SCANNER.nextLine();
+        FormularioRepository.fileReader(readFile);
     }
 
     private static void answersFileQuestions() {
@@ -46,10 +56,6 @@ public class FormularioService {
                 .age(age)
                 .height(height)
                 .build();
-        FormularioRepository.answersFileQuestions(pessoa);
-    }
-
-    private static void answersFileReader() {
-        FormularioRepository.answersFileReader();
+        FormularioRepository.answersFileQuestions(pessoa, "1 - %s.txt".formatted(name.toUpperCase()));
     }
 }

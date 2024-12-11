@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/cadastro/cadastro.iml" filepath="$PROJECT_DIR$/cadastro/cadastro.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/sistema-cadastro.iml" filepath="$PROJECT_DIR$/.idea/sistema-cadastro.iml" />
     </modules>
   </component>
 </project>
