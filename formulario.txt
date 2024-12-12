@@ -1,4 +1,6 @@
-1. Qual seu nome completo?
-2. Qual seu e-mail de contato?
-3. Qual sua idade?
-4. Qual sua altura?
+1 - Qual seu nome completo?
+2 - Qual seu email de contato?
+3 - Qual sua idade?
+4 - Qual sua altura?
+5 - Qual seu nível de escolaridade?
+6 - Estado Civil?

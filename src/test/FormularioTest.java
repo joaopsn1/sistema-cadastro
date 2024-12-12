@@ -36,7 +36,11 @@ public class FormularioTest {
         System.out.println("1. Create File");
         System.out.println("2. Delete File");
         System.out.println("3. Read File");
-        System.out.println("4. Answer for the questions");
-        System.out.println("5. File List");
+        System.out.println("4. Register Person");
+        System.out.println("5. Person List");
+        System.out.println("6. File List");
+        System.out.println("7. Register new question in the form");
+        System.out.println("8. Delete question from form");
+        System.out.println("9. Search user by name or age or email");
     }
 }

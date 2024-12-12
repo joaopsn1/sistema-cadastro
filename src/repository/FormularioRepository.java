@@ -8,7 +8,6 @@ import java.util.List;
 
 public class FormularioRepository {
     static Pessoa pessoa;
-    static List<File> arquivos = new ArrayList<>();
 
     public static File createFile(String nomeArquivo) {
         if (nomeArquivo == null || nomeArquivo.isEmpty()) {
@@ -19,22 +18,10 @@ public class FormularioRepository {
         try {
             boolean isCreated = file.createNewFile();
             System.out.printf("Created %s%n", isCreated);
-            if (isCreated) {
-                arquivos.add(file);
-                System.out.printf("Arquivo adicionado a lista: %s%n", file.getName());
-            }
         } catch (IOException e) {
             e.printStackTrace();
         }
         return file;
-    }
-
-    public static void fileList() {
-        if (arquivos.isEmpty()) {
-            System.out.println("Nenhum arquivo criado!");
-            return;
-        }
-        arquivos.stream().map(File::getName).forEach(System.out::println);
     }
 
     public static void fileReader(String nomeArquivo) {
@@ -45,7 +32,7 @@ public class FormularioRepository {
 
         File file = new File(nomeArquivo);
         if (!file.exists()) {
-            System.out.printf("Arquivo {%s} não existe%n", nomeArquivo);
+            System.out.printf("Arquivo {%s} não existe%n", file.getName());
             return;
         }
 
@@ -71,14 +58,14 @@ public class FormularioRepository {
         if (exists) {
             boolean isDeleted = file.delete();
             System.out.printf("Deleted %s%n", isDeleted);
-            arquivos.remove(file);
+            return false;
         }
-        System.out.printf("O arquivo {%s} não existe%n", nomeArquivo);
+        System.out.printf("O arquivo {%s} não existe%n", file.getName());
         return false;
     }
 
-    public static File answersFileQuestions(Pessoa pessoa, String nomeArquivo) {
-        if (pessoa == null || nomeArquivo == null || nomeArquivo.isBlank()) {
+    public static File personRegister(Pessoa pessoa, String nomeArquivo) {
+        if (pessoa == null || nomeArquivo == null || nomeArquivo.isEmpty()) {
             throw new IllegalArgumentException("Pessoa ou nome do arquivo inválidos!");
         }
 
@@ -91,16 +78,10 @@ public class FormularioRepository {
             boolean isCreated = fileAnswer.createNewFile();
             System.out.printf("Created file %s%n", isCreated);
             try (FileWriter fw = new FileWriter(fileAnswer)) {
-
                 fw.write("1 - %s%n".formatted(pessoa.getName()));
                 fw.write("2 - %s%n".formatted(pessoa.getEmail()));
                 fw.write("3 - %s%n".formatted(pessoa.getAge()));
                 fw.write("4 - %s%n".formatted(pessoa.getHeight()));
-
-                if (isCreated) {
-                    arquivos.add(fileAnswer);
-                    System.out.printf("Arquivo adicionado a lista: %s%n", fileAnswer.getName());
-                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -108,5 +89,24 @@ public class FormularioRepository {
             e.printStackTrace();
         }
         return fileAnswer;
+    }
+
+    public static File registerNewQuestion(String newQuestion) {
+        File file = new File("formulario.txt");
+        if (file.exists()) {
+            try (FileWriter fileWriter = new FileWriter(file, true);
+                 BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
+                bufferedWriter.newLine();
+                bufferedWriter.write(newQuestion);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return file;
+    }
+
+    public static File deleteQuestionsCreated() {
+        File file = new File("formulario.txt");
+        return file;
     }
 }
