@@ -5,6 +5,8 @@ import domain.Pessoa;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class FormularioRepository {
     static Pessoa pessoa;
@@ -105,8 +107,61 @@ public class FormularioRepository {
         return file;
     }
 
-    public static File deleteQuestionsCreated() {
+    public static void deleteQuestionsCreated() {
         File file = new File("formulario.txt");
-        return file;
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Digite a linha que deseja excluir: ");
+        int lineToDelete = scanner.nextInt();
+        try (FileReader fileReader = new FileReader(file);
+             BufferedReader bufferedReader = new BufferedReader(fileReader)) {
+            List<String> lines = new ArrayList<>();
+            String currentLine;
+            int currentLineNumber = 1;
+            while ((currentLine = bufferedReader.readLine()) != null) {
+                if (lineToDelete == 1 || lineToDelete == 2 || lineToDelete == 3 || lineToDelete == 4) {
+                    System.out.printf("Não é possível apagar a linha %d%n", lineToDelete);
+                    return;
+                }
+
+                if (currentLineNumber != lineToDelete) {
+                    lines.add(currentLine);
+                }
+                currentLineNumber++;
+            }
+            //escrever linhas de volta no arquivo
+            try (FileWriter fw = new FileWriter(file);
+                 BufferedWriter writer = new BufferedWriter(fw)) {
+
+                for (String line : lines) {
+                    writer.write(line);
+                    writer.newLine();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            System.out.printf("Linha %d deletada do arquivo%n", lineToDelete);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void searchUsersByName() {
+        File file = new File("usuarioscadastrados.txt");
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Digite o nome do usuario para pesquisar: ");
+        String username = scanner.nextLine();
+        try (FileReader fileReader = new FileReader(file);
+             BufferedReader bufferedReader = new BufferedReader(fileReader)) {
+            List<String> users = new ArrayList<>();
+            String currentLine;
+            while ((currentLine = bufferedReader.readLine()) != null) {
+                if (currentLine.contains(username)) {
+                    users.add(username);
+                }
+                System.out.println(username);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

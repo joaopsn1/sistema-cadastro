@@ -26,6 +26,8 @@ public class FormularioService {
             case 5 -> personList();
             case 6 -> fileList();
             case 7 -> registerNewQuestion();
+            case 8 -> deleteQuestionsCreated();
+            case 9 -> searchUsersByName();
         }
     }
 
@@ -130,5 +132,13 @@ public class FormularioService {
         System.out.println("Digite a pergunta para adicioná-la ao formulário");
         String question = SCANNER.nextLine();
         FormularioRepository.registerNewQuestion(question);
+    }
+
+    private static void deleteQuestionsCreated() {
+        FormularioRepository.deleteQuestionsCreated();
+    }
+
+    private static void searchUsersByName() {
+        FormularioRepository.searchUsersByName();
     }
 }
