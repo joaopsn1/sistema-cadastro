@@ -110,8 +110,20 @@ public class FormularioService {
                 System.out.printf("%s%n", linha);
             }
             String name = SCANNER.nextLine();
+            if (name.length() < 10) {
+                System.out.println("Impossível cadastrar, seu nome precisa ter no mínimo 10 caracteres!");
+                return;
+            }
             String email = SCANNER.nextLine();
+            if (!email.contains("@")) {
+                System.out.println("Para cadastrar o e-mail, deve-se ter '@'");
+                return;
+            }
             Integer age = Integer.parseInt(SCANNER.nextLine());
+            if (age < 18) {
+                System.out.println("Idade insuficiente para cadastro!");
+                return;
+            }
             Double height = Double.parseDouble(SCANNER.nextLine());
             Pessoa pessoa = Pessoa.builder()
                     .name(name)
